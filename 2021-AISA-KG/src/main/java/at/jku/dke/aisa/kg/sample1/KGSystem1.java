@@ -11,8 +11,8 @@ public class KGSystem1 {
 
 		KnowledgeGraphManager kg = 
 				new KnowledgeGraphManager(
-//						GLOBAL.getNewDatasetConnection(),
-						GLOBAL.getLocalFusekiConnection(),						
+						GLOBAL.getNewDatasetConnection(),
+//						GLOBAL.getLocalFusekiConnection(),						
 						GLOBAL.getPrefixMapping()
 						);
 		
