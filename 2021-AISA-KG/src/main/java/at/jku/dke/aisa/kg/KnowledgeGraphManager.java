@@ -22,6 +22,7 @@ public class KnowledgeGraphManager {
 	Map<String,ExternalModule> externalModules;
 	RDFConnection con;
 	PrefixMapping prefixes;
+	long logicalTime;
 
 	public KnowledgeGraphManager(RDFConnection con, PrefixMapping prefixes) {
 		moduleList = new ArrayList<Module>();
@@ -122,5 +123,18 @@ public class KnowledgeGraphManager {
         System.out.println("Bye...");
         scanner.close(); 
 	}
+	
+	public long getLogicalTime() {
+		return logicalTime;
+	}
+
+	public void setLogicalTime(long logicalTime) {
+		this.logicalTime = logicalTime;
+	}
+	
+	public void setLogicalTimeToNow() {
+		this.logicalTime = System.currentTimeMillis();
+	}
+
 	
 }

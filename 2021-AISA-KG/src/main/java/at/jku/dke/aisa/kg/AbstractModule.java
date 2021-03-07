@@ -19,15 +19,16 @@ public abstract class AbstractModule implements Module {
 	/** the local name of the module and its named graph */
 	private final String module;
 	
-	/** is set to current time at the beginning of every transaction */
-	private long timestamp; 
+	/** is set to logical time of KG at the beginning of every transaction */
+	private long logicalTime; 
+	private long physicalTime; 
 	private RDFConnection con;
 	KnowledgeGraphManager kg;
 	private PrefixMapping prefixes;
 	
 	public AbstractModule(String name) {
 		this.module = name;
-		this.timestamp = System.currentTimeMillis();
+		this.logicalTime = System.currentTimeMillis();
 	}
 	
 	public final void register(KnowledgeGraphManager kg) {
@@ -37,7 +38,8 @@ public abstract class AbstractModule implements Module {
 	}
 	
 	protected final void resetTimestamp() {
-		timestamp = System.currentTimeMillis();
+		logicalTime = kg.getLogicalTime();
+		physicalTime = System.currentTimeMillis();
 	}
 		
 	public final String getName() {
@@ -48,14 +50,18 @@ public abstract class AbstractModule implements Module {
 		return GLOBAL.NS_GRAPHS + module ;
 	}
 	
-	public final long getTimestamp() {
-		return timestamp;
+	public final long getLogicalTime() {
+		return logicalTime;
+	}
+	
+	public final long getPhysicalTime() {
+		return physicalTime;
 	}
 	
 	public ParameterizedSparqlString preprocessSparql(String sparql) {
 		ParameterizedSparqlString pss = new ParameterizedSparqlString(sparql);
 		pss.setIri("MODULE",getModuleIri());
-		pss.setLiteral("TIMESTAMP",getTimestamp());
+		pss.setLiteral("TIMESTAMP",getLogicalTime());
 		pss.setNsPrefixes(prefixes);
 		return pss;		
 	}

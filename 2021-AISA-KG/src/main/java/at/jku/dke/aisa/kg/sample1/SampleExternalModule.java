@@ -12,20 +12,20 @@ public class SampleExternalModule extends AbstractExternalModule {
 	@Override
 	protected
 	void doInit() {
-		System.out.println("DO INIT: " + getName() + "-" + getTurn() + "-" + getTimestamp());
+		System.out.println("DO INIT: " + getName() + "-" + getTurn() + "-" + getLogicalTime());
 	}
 
 	
 	@Override
 	protected
 	void doStartTurn() {
-		System.out.println("DO START: " + getName() + "-" + getTurn() + "-" + getTimestamp());
+		System.out.println("DO START: " + getName() + "-" + getTurn() + "-" + getLogicalTime());
 	}
 
 	@Override
 	protected
 	void doFinishTurn() {
-		System.out.println("DO FINISH: " + getName() + "-" + getTurn() + "-" + getTimestamp());
+		System.out.println("DO FINISH: " + getName() + "-" + getTurn() + "-" + getLogicalTime());
 
 	}
 

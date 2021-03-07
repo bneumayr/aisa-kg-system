@@ -17,7 +17,7 @@ public abstract class AbstractInternalModule extends AbstractVersionedModule imp
 		ParameterizedSparqlString pss = preprocessSparql("""
 				INSERT DATA { GRAPH ?TURN { ?TURN aisa:durationInMs ?DURATION. } }
 			""");
-		pss.setLiteral("DURATION",System.currentTimeMillis() - getTimestamp());
+		pss.setLiteral("DURATION",System.currentTimeMillis() - getPhysicalTime());
 		executeSparqlUpdate(pss);
 		
 	}

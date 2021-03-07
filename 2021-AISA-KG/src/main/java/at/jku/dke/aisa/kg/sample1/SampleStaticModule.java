@@ -12,7 +12,7 @@ public class SampleStaticModule extends AbstractStaticModule implements StaticMo
 	@Override
 	protected
 	void doInit() {
-		System.out.println("DO INIT: " + getName() + "-" + getTimestamp());		
+		System.out.println("DO INIT: " + getName() + "-" + getLogicalTime());		
 	}
 
 	

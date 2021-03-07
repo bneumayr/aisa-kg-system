@@ -10,12 +10,12 @@ public class SampleInternalModule extends AbstractInternalModule {
 
 	@Override
 	protected void doRun() {
-		System.out.println("DO RUN: " + getName() + "-" + getTurn() + "-" + getTimestamp());
+		System.out.println("DO RUN: " + getName() + "-" + getTurn() + "-" + getLogicalTime());
 	}
 
 	@Override
 	protected void doInit() {
-		System.out.println("DO INIT: " + getName() + "-" + getTurn() + "-" + getTimestamp());
+		System.out.println("DO INIT: " + getName() + "-" + getTurn() + "-" + getLogicalTime());
 	}
 
 }

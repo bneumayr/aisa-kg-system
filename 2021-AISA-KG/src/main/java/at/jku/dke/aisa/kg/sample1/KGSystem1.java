@@ -11,10 +11,14 @@ public class KGSystem1 {
 
 		KnowledgeGraphManager kg = 
 				new KnowledgeGraphManager(
-						GLOBAL.getNewDatasetConnection(),
-//						GLOBAL.getLocalFusekiConnection(),						
+//						GLOBAL.getNewDatasetConnection(),
+						GLOBAL.getLocalFusekiConnection(),						
 						GLOBAL.getPrefixMapping()
 						);
+		
+		long time = 0;
+		
+		kg.setLogicalTime(time++);
 		
 		kg.cleanKG();
 		kg.cleanOutputFolders();
@@ -26,6 +30,9 @@ public class KGSystem1 {
 		FlightPairs pairs = new FlightPairs();
 		PerformanceReport report = new PerformanceReport();
 		
+		
+		kg.setLogicalTime(time++);
+
 		kg.register(adsb); 
 		kg.register(qadsb); 
 		kg.register(adsbP1); 
@@ -33,16 +40,24 @@ public class KGSystem1 {
 		kg.register(pairs);  
 		kg.register(report);  
 		
+		kg.setLogicalTime(time++);
+
 		kg.initAllModules();
 			
 		for(int i=0; i<5; i++) {
+			kg.setLogicalTime(time++);
 			adsb.run();
+			kg.setLogicalTime(time++);
 			qadsb.run();
+			kg.setLogicalTime(time++);
 			adsbP1.run();
+			kg.setLogicalTime(time++);
 			adsbP2.run();
+			kg.setLogicalTime(time++);
 			pairs.run();
 		}
 		
+		kg.setLogicalTime(time++);
 		report.run();
 		
 	}
