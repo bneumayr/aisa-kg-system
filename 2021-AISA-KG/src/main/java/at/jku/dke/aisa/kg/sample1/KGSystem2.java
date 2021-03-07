@@ -15,10 +15,13 @@ public class KGSystem2 {
 						GLOBAL.getLocalFusekiConnection(),						
 						GLOBAL.getPrefixMapping()
 						);
-		
+		long time = 0;
+		kg.setLogicalTime(time++);
 		kg.cleanKG();
 		kg.cleanOutputFolders();
+
 		
+		kg.setLogicalTime(time++);
 		kg.register(new SampleStaticModule("ModuleA"));
 		kg.register(new SampleStaticModule("ModuleB"));
 		kg.register(new SampleExternalModule("ExternalA"));
@@ -31,6 +34,7 @@ public class KGSystem2 {
 		kg.register(new ADSBProcessor2());  //module name: adsbP2
 		kg.register(new FlightPairs());  //module name: pairs
 		
+		kg.setLogicalTime(time++);
 		kg.initAllModules();
 			
 		kg.startConsoleApplication(System.in, System.out);		

@@ -47,7 +47,7 @@ public class KGSystem1 {
 		for(int i=0; i<5; i++) {
 			kg.setLogicalTime(time++);
 			adsb.run();
-			kg.setLogicalTime(time++);
+			kg.setLogicalTime(time++);  
 			qadsb.run();
 			kg.setLogicalTime(time++);
 			adsbP1.run();

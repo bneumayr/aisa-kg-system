@@ -87,6 +87,7 @@ public class KnowledgeGraphManager {
 		Scanner scanner = new Scanner(in);
         out.print("Your commands: > ");
         while (true){
+        	logicalTime++;
             String s = scanner.next();
             if(s.equals("exit")) break;
             else if(s.equals("run")) {
