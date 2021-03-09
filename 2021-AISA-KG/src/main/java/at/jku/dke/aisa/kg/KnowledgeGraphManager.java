@@ -100,14 +100,14 @@ public class KnowledgeGraphManager {
             else if(s.equals("start")) {
             	String mod = scanner.next();
             	if(externalModules.containsKey(mod))
-            		externalModules.get(mod).startTurn();
+            		externalModules.get(mod).exportInput();
             	else
             		out.println("There is no external module '"+mod+"' to start");
             }
             else if(s.equals("finish")) {
             	String mod = scanner.next();
             	if(externalModules.containsKey(mod))
-            		externalModules.get(mod).finishTurn();
+            		externalModules.get(mod).importResults();
             	else
             		out.println("There is no external module '"+mod+"' to finish");
             }

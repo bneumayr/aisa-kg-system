@@ -11,7 +11,7 @@ public abstract class AbstractExternalModule extends AbstractVersionedModule imp
 	}
 
 	/**  */
-	public final void startTurn() {
+	public final void exportInput() {
 		resetTimestamp();
 		initTurn();
 		doStartTurn();		
@@ -19,7 +19,7 @@ public abstract class AbstractExternalModule extends AbstractVersionedModule imp
 
 	abstract protected void doStartTurn();
 	
-	public final void finishTurn() {
+	public final void importResults() {
 		resetTimestamp();
 		doFinishTurn();	
 		commitTurn();
