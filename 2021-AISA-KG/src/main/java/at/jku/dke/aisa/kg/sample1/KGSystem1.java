@@ -1,7 +1,7 @@
 package at.jku.dke.aisa.kg.sample1;
 
 import at.jku.dke.aisa.kg.GLOBAL;
-import at.jku.dke.aisa.kg.KnowledgeGraphManager;
+import at.jku.dke.aisa.kg.KGSystem;
 
 public class KGSystem1 {
 
@@ -9,8 +9,8 @@ public class KGSystem1 {
 
 	public static void main(String[] args) throws Exception {
 
-		KnowledgeGraphManager kg = 
-				new KnowledgeGraphManager(
+		KGSystem kg = 
+				new KGSystem(
 //						GLOBAL.getNewDatasetConnection(),
 						GLOBAL.getLocalFusekiConnection(),						
 						GLOBAL.getPrefixMapping()

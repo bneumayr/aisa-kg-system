@@ -1,7 +1,7 @@
 package at.jku.dke.aisa.kg.sample1;
 
 import at.jku.dke.aisa.kg.GLOBAL;
-import at.jku.dke.aisa.kg.KnowledgeGraphManager;
+import at.jku.dke.aisa.kg.KGSystem;
 
 public class KGSystem2 {
 
@@ -9,8 +9,8 @@ public class KGSystem2 {
 
 	public static void main(String[] args) throws Exception {
 
-		KnowledgeGraphManager kg = 
-				new KnowledgeGraphManager(
+		KGSystem kg = 
+				new KGSystem(
 //						GLOBAL.getNewDatasetConnection(),
 						GLOBAL.getLocalFusekiConnection(),						
 						GLOBAL.getPrefixMapping()
@@ -33,6 +33,7 @@ public class KGSystem2 {
 		kg.register(new ADSBProcessor1());  //module name: adsbP1
 		kg.register(new ADSBProcessor2());  //module name: adsbP2
 		kg.register(new FlightPairs());  //module name: pairs
+		kg.register(new PerformanceReport());  //module name: pairs
 		
 		kg.setLogicalTime(time++);
 		kg.initAllModules();

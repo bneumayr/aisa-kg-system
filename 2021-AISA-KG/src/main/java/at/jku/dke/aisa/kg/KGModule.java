@@ -1,12 +1,12 @@
 package at.jku.dke.aisa.kg;
 
-public interface Module {
+public interface KGModule {
 	
 	public String getName();
 	
 	public void init();
 	
-	public void register(KnowledgeGraphManager kg);
+	public void register(KGSystem kg);
 	
 	public String getModuleIri();
 

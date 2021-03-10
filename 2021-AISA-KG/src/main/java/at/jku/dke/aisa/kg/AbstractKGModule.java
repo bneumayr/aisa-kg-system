@@ -14,7 +14,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdfconnection.RDFConnection;
 import org.apache.jena.shared.PrefixMapping;
 
-public abstract class AbstractModule implements Module {
+public abstract class AbstractKGModule implements KGModule {
 
 	/** the local name of the module and its named graph */
 	private final String module;
@@ -23,15 +23,15 @@ public abstract class AbstractModule implements Module {
 	private long logicalTime; 
 	private long physicalTime; 
 	private RDFConnection con;
-	KnowledgeGraphManager kg;
+	KGSystem kg;
 	private PrefixMapping prefixes;
 	
-	public AbstractModule(String name) {
+	public AbstractKGModule(String name) {
 		this.module = name;
 		this.logicalTime = System.currentTimeMillis();
 	}
 	
-	public final void register(KnowledgeGraphManager kg) {
+	public final void register(KGSystem kg) {
 		this.kg = kg;
 		this.con = kg.getConnection();
 		this.prefixes = kg.getPrefixes();

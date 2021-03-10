@@ -3,7 +3,6 @@ package at.jku.dke.aisa.kg.sample1;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
 import at.jku.dke.aisa.kg.AbstractInternalModule;
 import at.jku.dke.aisa.kg.InternalModule;
 

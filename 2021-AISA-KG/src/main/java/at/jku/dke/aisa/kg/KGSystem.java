@@ -13,10 +13,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.jena.rdfconnection.RDFConnection;
 import org.apache.jena.shared.PrefixMapping;
 
-public class KnowledgeGraphManager {
+public class KGSystem {
 
-	ArrayList<Module> moduleList; //in the order they were registered
-	Map<String,Module> modules;
+	ArrayList<KGModule> moduleList; //in the order they were registered
+	Map<String,KGModule> modules;
 	Map<String,StaticModule> staticModules;
 	Map<String,InternalModule> internalModules;
 	Map<String,ExternalModule> externalModules;
@@ -24,9 +24,9 @@ public class KnowledgeGraphManager {
 	PrefixMapping prefixes;
 	long logicalTime;
 
-	public KnowledgeGraphManager(RDFConnection con, PrefixMapping prefixes) {
-		moduleList = new ArrayList<Module>();
-		modules = new HashMap<String,Module>();
+	public KGSystem(RDFConnection con, PrefixMapping prefixes) {
+		moduleList = new ArrayList<KGModule>();
+		modules = new HashMap<String,KGModule>();
 		staticModules = new HashMap<String,StaticModule>();
 		internalModules = new HashMap<String,InternalModule>();
 		externalModules = new HashMap<String,ExternalModule>();
@@ -34,7 +34,7 @@ public class KnowledgeGraphManager {
 		this.prefixes = prefixes;
 	}
 	
-	public void register(Module mod) throws Exception  {
+	public void register(KGModule mod) throws Exception  {
 		
 		if(modules.containsKey(mod.getName()))
 			throw new Exception("Module with name" + mod.getName() + " already registered");
@@ -54,7 +54,7 @@ public class KnowledgeGraphManager {
 	}
 	
 	public void initAllModules() {
-		for (Module mod : moduleList) {
+		for (KGModule mod : moduleList) {
 			mod.init();
 		}		
 	}

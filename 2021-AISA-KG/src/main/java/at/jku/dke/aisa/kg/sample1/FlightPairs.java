@@ -76,7 +76,7 @@ public final class FlightPairs extends AbstractInternalModule implements Interna
 
 		loadGraphToKG(getTurnIri(), m);
 		
-		System.out.println("pairs: " + m.size() + " triples inserted");
+		System.out.println("pairs: " + m.size() + " distances between flights inserted");
 		
 	}
 

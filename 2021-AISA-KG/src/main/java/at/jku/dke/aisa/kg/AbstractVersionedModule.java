@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 import org.apache.jena.query.ParameterizedSparqlString;
 
-public abstract class AbstractVersionedModule extends AbstractModule implements VersionedModule {
+public abstract class AbstractVersionedModule extends AbstractKGModule implements VersionedModule {
 
 	int turn = 0;
 	private long previousInvocationTime = 0;
@@ -85,34 +85,30 @@ public abstract class AbstractVersionedModule extends AbstractModule implements 
 	}
 
 	
-	/*
-	 * TODO über mode=old nachdenken und wie das mit der invocation-time ist (< oder =< ?) 
-	 */
 	public String extendWithGraphPatterns(String sparql) {
-		Matcher matcher1 = Pattern.compile("GRAPH\\s+\\?G\\_(\\w+)\\_(\\w+)\\s+\\{").matcher(sparql);
+		Matcher matcher1 = Pattern.compile("GRAPH\\s+\\?(G\\d*)\\_(\\w+)\\_(\\w+)\\s+\\{").matcher(sparql);
 		HashMap<String,String> specialGraphVars = new HashMap<String,String>();
 		while ( matcher1.find() ) {
-			String moduleName = matcher1.group(1);
-			String mode = matcher1.group(2);
+			String moduleName = matcher1.group(2);
+			String mode = matcher1.group(3);
 			String moduleIri;
-			String graphVar = "G_" + moduleName + "_" + mode;
+			String graphVar = matcher1.group(1)+ "_" + moduleName + "_" + mode;
 			if(specialGraphVars.containsKey(graphVar))
 				continue;
 			if(! kg.modules.containsKey(moduleName)) 
 				throw new RuntimeException(moduleName + "does not exists");
 			moduleIri = kg.modules.get(moduleName).getModuleIri();
 			/* always restrict to the given module */
-			String replacement = "";
+			String replacement = 
+					"GRAPH ?" + graphVar + " {?" + graphVar + " aisa:module <" + moduleIri + ">; \n"
+	                  + " aisa:commitTime ?time_" + graphVar + ".\n"
+	                  + "   FILTER ( ?time_" + graphVar + " < " + getLogicalTime() + ") \n";
 			if(mode.equals("all")) 
-				replacement += "GRAPH ?" + graphVar + " {?" + graphVar + " aisa:module <" + moduleIri + ">.\n";
+				replacement += "";
 			else if(mode.equals("new")) 
-				replacement += "GRAPH ?" + graphVar + " {?" + graphVar + " aisa:module <" + moduleIri + ">; \n"
-						                  + " aisa:invocationTime ?time_" + graphVar + ".\n"
-							+ "   FILTER ( ?time_" + graphVar + " > " + getPreviousInvocationTime() + ") \n";
+				replacement += "  FILTER ( ?time_" + graphVar + " > " + getPreviousInvocationTime() + ") \n";
 			else if(mode.equals("old")) 
-				replacement += "GRAPH ?" + graphVar + " {?" + graphVar + " aisa:module <" + moduleIri + ">; \n"
-		                    + " aisa:invocationTime ?time_" + graphVar + ".\n"
-							+ "   FILTER ( ?time_" + graphVar + " < " + getPreviousInvocationTime() + ") \n";
+				replacement += "  FILTER ( ?time_" + graphVar + " < " + getPreviousInvocationTime() + ") \n";
 			else
 				throw new RuntimeException("Unknown SpecialGraphVars-Mode: " + mode);
 			specialGraphVars.put(graphVar, replacement);
@@ -120,7 +116,7 @@ public abstract class AbstractVersionedModule extends AbstractModule implements 
 		matcher1.reset();
 		StringBuffer sb = new StringBuffer();
 		while ( matcher1.find() ) { 
-			String graphVar = "G_" +  matcher1.group(1) + "_" +  matcher1.group(2);
+			String graphVar = matcher1.group(1)+ "_"  +  matcher1.group(2) + "_" +  matcher1.group(3);
 			matcher1.appendReplacement( sb, specialGraphVars.get(graphVar));
 		}
 		matcher1.appendTail( sb );

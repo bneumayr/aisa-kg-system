@@ -18,13 +18,13 @@ public class SampleExternalModule extends AbstractExternalModule {
 	
 	@Override
 	protected
-	void doStartTurn() {
+	void doExportInput() {
 		System.out.println("DO START: " + getName() + "-" + getTurn() + "-" + getLogicalTime());
 	}
 
 	@Override
 	protected
-	void doFinishTurn() {
+	void doImportResults() {
 		System.out.println("DO FINISH: " + getName() + "-" + getTurn() + "-" + getLogicalTime());
 
 	}

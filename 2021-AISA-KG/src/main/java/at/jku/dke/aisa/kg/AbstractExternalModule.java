@@ -14,17 +14,17 @@ public abstract class AbstractExternalModule extends AbstractVersionedModule imp
 	public final void exportInput() {
 		resetTimestamp();
 		initTurn();
-		doStartTurn();		
+		doExportInput();		
 	}
 
-	abstract protected void doStartTurn();
+	abstract protected void doExportInput();
 	
 	public final void importResults() {
 		resetTimestamp();
-		doFinishTurn();	
+		doImportResults();	
 		commitTurn();
 	}
 	
-	abstract protected void doFinishTurn();	
+	abstract protected void doImportResults();	
 
 }
