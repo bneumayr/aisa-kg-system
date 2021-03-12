@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 import org.apache.jena.query.ParameterizedSparqlString;
 
-public abstract class AbstractVersionedModule extends AbstractKGModule implements VersionedModule {
+public abstract class AbstractMultipleRunModule extends AbstractKGModule implements MultipleRunModule {
 
 	int turn = 0;
 	private long previousInvocationTime = 0;
@@ -15,7 +15,7 @@ public abstract class AbstractVersionedModule extends AbstractKGModule implement
 		previousInvocationTime = time;
 	}
 	
-	public AbstractVersionedModule(String name) {
+	public AbstractMultipleRunModule(String name) {
 		super(name);
 	}
 	

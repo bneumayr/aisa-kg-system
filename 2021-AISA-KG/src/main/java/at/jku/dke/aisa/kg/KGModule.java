@@ -6,7 +6,7 @@ public interface KGModule {
 	
 	public void init();
 	
-	public void register(KGSystem kg);
+	public void register(KGModuleSystem kg);
 	
 	public String getModuleIri();
 

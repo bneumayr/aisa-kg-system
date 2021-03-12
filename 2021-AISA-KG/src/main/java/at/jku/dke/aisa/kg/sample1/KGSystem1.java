@@ -1,7 +1,7 @@
 package at.jku.dke.aisa.kg.sample1;
 
 import at.jku.dke.aisa.kg.GLOBAL;
-import at.jku.dke.aisa.kg.KGSystem;
+import at.jku.dke.aisa.kg.KGModuleSystem;
 
 public class KGSystem1 {
 
@@ -9,8 +9,8 @@ public class KGSystem1 {
 
 	public static void main(String[] args) throws Exception {
 
-		KGSystem kg = 
-				new KGSystem(
+		KGModuleSystem kg = 
+				new KGModuleSystem(
 //						GLOBAL.getNewDatasetConnection(),
 						GLOBAL.getLocalFusekiConnection(),						
 						GLOBAL.getPrefixMapping()

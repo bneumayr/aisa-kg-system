@@ -13,21 +13,21 @@ import org.apache.commons.io.FileUtils;
 import org.apache.jena.rdfconnection.RDFConnection;
 import org.apache.jena.shared.PrefixMapping;
 
-public class KGSystem {
+public class KGModuleSystem {
 
 	ArrayList<KGModule> moduleList; //in the order they were registered
 	Map<String,KGModule> modules;
-	Map<String,StaticModule> staticModules;
+	Map<String,SingleRunModule> staticModules;
 	Map<String,InternalModule> internalModules;
 	Map<String,ExternalModule> externalModules;
 	RDFConnection con;
 	PrefixMapping prefixes;
 	long logicalTime;
 
-	public KGSystem(RDFConnection con, PrefixMapping prefixes) {
+	public KGModuleSystem(RDFConnection con, PrefixMapping prefixes) {
 		moduleList = new ArrayList<KGModule>();
 		modules = new HashMap<String,KGModule>();
-		staticModules = new HashMap<String,StaticModule>();
+		staticModules = new HashMap<String,SingleRunModule>();
 		internalModules = new HashMap<String,InternalModule>();
 		externalModules = new HashMap<String,ExternalModule>();
 		this.con = con;
@@ -48,8 +48,8 @@ public class KGSystem {
 			externalModules.put(mod.getName(),(ExternalModule) mod);
 		else if(mod instanceof InternalModule)
 			internalModules.put(mod.getName(),(InternalModule) mod);
-		else if(mod instanceof StaticModule)
-			staticModules.put(mod.getName(),(StaticModule) mod);
+		else if(mod instanceof SingleRunModule)
+			staticModules.put(mod.getName(),(SingleRunModule) mod);
 		else throw new Exception("Every model must be one of ExternalModule, InternalModule, StaticModule");
 	}
 	

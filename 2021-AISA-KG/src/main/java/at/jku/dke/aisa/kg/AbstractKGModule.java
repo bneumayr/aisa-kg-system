@@ -23,7 +23,7 @@ public abstract class AbstractKGModule implements KGModule {
 	private long logicalTime; 
 	private long physicalTime; 
 	private RDFConnection con;
-	KGSystem kg;
+	KGModuleSystem kg;
 	private PrefixMapping prefixes;
 	
 	public AbstractKGModule(String name) {
@@ -31,7 +31,7 @@ public abstract class AbstractKGModule implements KGModule {
 		this.logicalTime = System.currentTimeMillis();
 	}
 	
-	public final void register(KGSystem kg) {
+	public final void register(KGModuleSystem kg) {
 		this.kg = kg;
 		this.con = kg.getConnection();
 		this.prefixes = kg.getPrefixes();

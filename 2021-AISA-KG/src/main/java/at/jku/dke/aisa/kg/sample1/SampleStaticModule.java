@@ -1,9 +1,9 @@
 package at.jku.dke.aisa.kg.sample1;
 
-import at.jku.dke.aisa.kg.AbstractStaticModule;
-import at.jku.dke.aisa.kg.StaticModule;
+import at.jku.dke.aisa.kg.AbstractSingleRunModule;
+import at.jku.dke.aisa.kg.SingleRunModule;
 
-public class SampleStaticModule extends AbstractStaticModule implements StaticModule {
+public class SampleStaticModule extends AbstractSingleRunModule implements SingleRunModule {
 
 	public SampleStaticModule(String name) {
 		super(name);

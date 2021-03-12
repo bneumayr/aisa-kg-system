@@ -4,7 +4,7 @@ package at.jku.dke.aisa.kg;
  * 
  * for external modules a turn consists of two transactions: 1. export/checkOut, 2. import/checkIn
  * */
-public abstract class AbstractExternalModule extends AbstractVersionedModule implements ExternalModule {
+public abstract class AbstractExternalModule extends AbstractMultipleRunModule implements ExternalModule {
 
 	public AbstractExternalModule(String name) {
 		super(name);

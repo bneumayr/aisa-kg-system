@@ -2,7 +2,7 @@ package at.jku.dke.aisa.kg;
 
 import org.apache.jena.query.ParameterizedSparqlString;
 
-public abstract class AbstractInternalModule extends AbstractVersionedModule implements InternalModule {
+public abstract class AbstractInternalModule extends AbstractMultipleRunModule implements InternalModule {
 	
 	public AbstractInternalModule(String name) {
 		super(name);
