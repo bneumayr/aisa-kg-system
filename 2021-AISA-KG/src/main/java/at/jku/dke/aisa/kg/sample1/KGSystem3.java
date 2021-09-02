@@ -2,6 +2,7 @@ package at.jku.dke.aisa.kg.sample1;
 
 import at.jku.dke.aisa.kg.GLOBAL;
 import at.jku.dke.aisa.kg.KGModuleSystem;
+import at.jku.dke.aisa.kg.SchemaLoader;
 
 public class KGSystem3 {
 
@@ -23,6 +24,7 @@ public class KGSystem3 {
 		kg.cleanKG();
 		kg.cleanOutputFolders();
 		
+		SchemaLoader schema = new SchemaLoader();
 		ADSBLoader adsb = new ADSBLoader();
 		PrologModule prolog = new PrologModule();
 		QueryADSB qadsb = new QueryADSB();
@@ -34,6 +36,7 @@ public class KGSystem3 {
 		
 		kg.setLogicalTime(time++);
 
+		kg.register(schema); 
 		kg.register(adsb); 
 		kg.register(prolog);
 		kg.register(qadsb); 

@@ -5,7 +5,6 @@ public abstract class AbstractPrologModule extends AbstractInternalModule  {
 	public AbstractPrologModule(String name)  {
 		super(name);
 	}
-
 	
 	/* Prolog modules have their named graphs replicated directly before and after 
 	 * being run so that metadata management can take place solely in the KG */
@@ -15,10 +14,4 @@ public abstract class AbstractPrologModule extends AbstractInternalModule  {
 		kg.copyFromPrologToKg(getTurnIri());
 	}
 	
-	@Override
-	protected void doRun() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
