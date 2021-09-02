@@ -3,18 +3,28 @@ package at.jku.dke.aisa.kg;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdfconnection.RDFConnection;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.shared.PrefixMapping;
+import org.jpl7.Query;
 
 public class KGModuleSystem {
 
+	private static final String TEMPFILE_PATH_REPLICATE = "fileoutput/tempreplicate.rdf";
+	private static final String PROLOG_PROGRAM = "resources/program.pl";
 	ArrayList<KGModule> moduleList; //in the order they were registered
 	Map<String,KGModule> modules;
 	Map<String,SingleRunModule> staticModules;
@@ -32,6 +42,10 @@ public class KGModuleSystem {
 		externalModules = new HashMap<String,ExternalModule>();
 		this.con = con;
 		this.prefixes = prefixes;
+		
+		new Query("consult('"+ PROLOG_PROGRAM + "')").hasSolution();
+
+		
 	}
 	
 	public void register(KGModule mod) throws Exception  {
@@ -136,6 +150,33 @@ public class KGModuleSystem {
 	public void setLogicalTimeToNow() {
 		this.logicalTime = System.currentTimeMillis();
 	}
+	
+	
+	
+	
+	/** replicate a named graph from the KG in Prolog-RDF-DB
+	 * 
+	 *  it is assumed that the named graph is committed and does not change anymore
+	 *  */
+	public void copyFromKgToProlog(String graphIri) {
+		Model model = con.fetch(graphIri);		
+		
+		try(OutputStream fileOut = Files.newOutputStream(Paths.get(TEMPFILE_PATH_REPLICATE))) {
+			RDFDataMgr.write(fileOut, model, Lang.RDFXML);
+		} catch (IOException e) { e.printStackTrace(); }
+		
+		new Query("rdf_load('" + TEMPFILE_PATH_REPLICATE + "',[graph('"+graphIri+"')])").hasSolution();
+	}
+	
+	/** replicate a named graph from Prolog-RDF-DB in the KG 
+	 * 
+	 * it is assumed that the named graph is committed and does not change anymore
+	 * */
+	public void copyFromPrologToKg(String graphIri) {
+		new Query("rdf_save('" + TEMPFILE_PATH_REPLICATE + "',[graph('"+graphIri+"')])").hasSolution();
+		con.load(graphIri, TEMPFILE_PATH_REPLICATE); 	
+	}
+
 
 	
 }

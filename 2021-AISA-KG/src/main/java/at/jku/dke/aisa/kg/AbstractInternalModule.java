@@ -11,7 +11,7 @@ public abstract class AbstractInternalModule extends AbstractMultipleRunModule i
 	public final void run() {
 		resetTimestamp();
 		initTurn();
-		doRun();
+		doRun2();
 		commitTurn();	
 		
 		ParameterizedSparqlString pss = preprocessSparql("""
@@ -20,6 +20,15 @@ public abstract class AbstractInternalModule extends AbstractMultipleRunModule i
 		pss.setLiteral("DURATION",System.currentTimeMillis() - getPhysicalTime());
 		executeSparqlUpdate(pss);
 		
+		/* note that named graphs from Prolog get replicated back to Prolog so that the metadata added here is also 
+		 * available in Prolog */
+		kg.copyFromKgToProlog(getTurnIri());
+		
+	}
+	
+	/* used to add additional code in subclasses before or after doRun*/
+	protected void doRun2() {
+		doRun();
 	}
 	
 	abstract protected void doRun();

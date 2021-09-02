@@ -83,6 +83,9 @@ public abstract class AbstractKGModule implements KGModule {
 		executeSparqlUpdate(pss);	
 		
 		doInit();
+		
+		kg.copyFromKgToProlog(getModuleIri());
+		
 	}
 	
 	/** per default doInit does nothing, can be overridden when necessary */
