@@ -23,7 +23,7 @@ public class SchemaLoader extends AbstractSingleRunModule {
 
 
 	private final static String PREFIXES_FILE = "resources/prefixes.ttl";
-	private final static String FACTS_FILE = "output/facts.pl";
+//	private final static String FACTS_FILE = "output/facts.pl";
 	private static final Logger LOGGER = LoggerFactory.getLogger(SchemaLoader.class);
 	
 	public SchemaLoader() {
@@ -31,8 +31,7 @@ public class SchemaLoader extends AbstractSingleRunModule {
 	}
 	
 	public String getModuleIri() {
-		return GLOBAL.SCHEMA_GRAPH_NAME ;
-		
+		return GLOBAL.SCHEMA_GRAPH_NAME ;		
 	}
 	
 	protected void doInit() {
@@ -58,7 +57,7 @@ public class SchemaLoader extends AbstractSingleRunModule {
 		
 			mapper.printStaticContent(printWriter);
 			mapper.printPrefixRegistration(printWriter);
-			mapper.printLoadDataSet(printWriter);
+//			mapper.printLoadDataSet(printWriter);
 			mapper.printRDFMeta(printWriter);
 			mapper.printSubClassOfRules(printWriter, getModuleIri());
 			
@@ -67,10 +66,10 @@ public class SchemaLoader extends AbstractSingleRunModule {
 			mapper.printInheritanceRules(printWriter);
 			
 		} catch (FileNotFoundException e) {
-			String message = String.format("File %s could not be found.", FACTS_FILE);
+			String message = String.format("File %s could not be found.", getOutputPath("facts.pl"));
 			LOGGER.debug(message);
 		} finally {
-			LOGGER.debug("SPARQL2Prolog mapping completed. Result can be found in " + FACTS_FILE);
+			LOGGER.debug("SPARQL2Prolog mapping completed. Result can be found in " + getOutputPath("facts.pl"));
 		}
         
 		new Query("consult('" + getOutputPath("facts.pl") + "')").hasSolution();

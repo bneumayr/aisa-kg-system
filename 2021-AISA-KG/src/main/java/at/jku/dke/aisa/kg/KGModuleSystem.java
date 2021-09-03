@@ -24,7 +24,7 @@ import org.jpl7.Query;
 public class KGModuleSystem {
 
 	private static final String TEMPFILE_PATH_REPLICATE = "fileoutput/tempreplicate.rdf";
-	private static final String PROLOG_PROGRAM = "resources/program.pl";
+	private static final String PROLOG_PROGRAM = "resources/global.pl";
 	ArrayList<KGModule> moduleList; //in the order they were registered
 	Map<String,KGModule> modules;
 	Map<String,SingleRunModule> staticModules;

@@ -1,4 +1,4 @@
-package at.jku.dke.aisa.kg.sample1;
+package at.jku.dke.aisa.kg.sampleProlog;
 
 import org.apache.jena.query.ParameterizedSparqlString;
 import org.apache.jena.query.ResultSet;

@@ -26,7 +26,7 @@ public final class GLOBAL {
 	public final static String SCHEMA_GRAPH_NAME = "https://github.com/jku-win-dke/aisa/graphs/schema";
 	public final static String DATA_GRAPH_NAMESPACE = "https://github.com/jku-win-dke/aisa/graphs";
 
-    
+    //TODO: aus prefixes.ttl einlesen
     public static PrefixMapping getPrefixMapping() {
 		PrefixMapping prefixes = new PrefixMappingImpl();		
 		prefixes.setNsPrefix("xs",    NS_XS); 

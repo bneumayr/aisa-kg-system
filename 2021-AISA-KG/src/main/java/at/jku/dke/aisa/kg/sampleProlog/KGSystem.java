@@ -1,18 +1,17 @@
-package at.jku.dke.aisa.kg.sample1;
+package at.jku.dke.aisa.kg.sampleProlog;
 
 import at.jku.dke.aisa.kg.GLOBAL;
 import at.jku.dke.aisa.kg.KGModuleSystem;
 import at.jku.dke.aisa.kg.SchemaLoader;
 
-public class KGSystem3 {
+public class KGSystem {
 
-	public KGSystem3() {}
+	public KGSystem() {}
 
 	public static void main(String[] args) throws Exception {
 
 		KGModuleSystem kg = 
 				new KGModuleSystem(
-//						GLOBAL.getNewDatasetConnection(),
 						GLOBAL.getLocalFusekiConnection(),						
 						GLOBAL.getPrefixMapping()
 						);
@@ -25,7 +24,8 @@ public class KGSystem3 {
 		kg.cleanOutputFolders();
 		
 		SchemaLoader schema = new SchemaLoader();
-		PrologModule prolog = new PrologModule();
+		PrologModule prolog1 = new PrologModule("prolog1");
+		PrologModule prolog2 = new PrologModule("prolog2");
 		DonlonLoader donlon = new DonlonLoader();
 		FixmLoader fixm = new FixmLoader();
 		PerformanceReport report = new PerformanceReport();
@@ -36,7 +36,8 @@ public class KGSystem3 {
 		kg.register(schema); 
 		kg.register(fixm);
 		kg.register(donlon); 
-		kg.register(prolog); 
+		kg.register(prolog1); 
+		kg.register(prolog2); 
 		kg.register(report); 
 		
 		kg.setLogicalTime(time++);
@@ -49,7 +50,9 @@ public class KGSystem3 {
 			kg.setLogicalTime(time++);
 			fixm.run();
 			kg.setLogicalTime(time++);
-			prolog.run();
+			prolog1.run();
+			kg.setLogicalTime(time++);
+			prolog2.run();
 		}
 		
 		kg.setLogicalTime(time++);

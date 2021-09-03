@@ -10,6 +10,7 @@ public abstract class AbstractPrologModule extends AbstractInternalModule  {
 	 * being run so that metadata management can take place solely in the KG */
 	protected void doRun2() {
 		kg.copyFromKgToProlog(getTurnIri());
+		
 		doRun();
 		kg.copyFromPrologToKg(getTurnIri());
 	}
