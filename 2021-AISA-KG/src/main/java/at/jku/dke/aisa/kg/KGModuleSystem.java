@@ -44,8 +44,7 @@ public class KGModuleSystem {
 		this.prefixes = prefixes;
 		
 		new Query("consult('"+ PROLOG_PROGRAM + "')").hasSolution();
-
-		
+	
 	}
 	
 	public void register(KGModule mod) throws Exception  {

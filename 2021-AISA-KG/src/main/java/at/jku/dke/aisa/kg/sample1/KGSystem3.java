@@ -25,25 +25,19 @@ public class KGSystem3 {
 		kg.cleanOutputFolders();
 		
 		SchemaLoader schema = new SchemaLoader();
-		ADSBLoader adsb = new ADSBLoader();
 		PrologModule prolog = new PrologModule();
-		QueryADSB qadsb = new QueryADSB();
-		ADSBProcessor1 adsbP1 = new ADSBProcessor1();
-		ADSBProcessor2 adsbP2 = new ADSBProcessor2();
-		FlightPairs pairs = new FlightPairs();
+		DonlonLoader donlon = new DonlonLoader();
+		FixmLoader fixm = new FixmLoader();
 		PerformanceReport report = new PerformanceReport();
 		
 		
 		kg.setLogicalTime(time++);
 
 		kg.register(schema); 
-		kg.register(adsb); 
-		kg.register(prolog);
-		kg.register(qadsb); 
-		kg.register(adsbP1); 
-		kg.register(adsbP2); 
-		kg.register(pairs);  
-		kg.register(report);  
+		kg.register(fixm);
+		kg.register(donlon); 
+		kg.register(prolog); 
+		kg.register(report); 
 		
 		kg.setLogicalTime(time++);
 
@@ -51,17 +45,11 @@ public class KGSystem3 {
 			
 		for(int i=0; i<5; i++) {
 			kg.setLogicalTime(time++);
-			adsb.run();
+			donlon.run();
+			kg.setLogicalTime(time++);
+			fixm.run();
 			kg.setLogicalTime(time++);
 			prolog.run();
-			kg.setLogicalTime(time++);  
-			qadsb.run();
-			kg.setLogicalTime(time++);
-			adsbP1.run();
-			kg.setLogicalTime(time++);
-			adsbP2.run();
-			kg.setLogicalTime(time++);
-			pairs.run();
 		}
 		
 		kg.setLogicalTime(time++);
