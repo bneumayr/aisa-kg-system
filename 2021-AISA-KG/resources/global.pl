@@ -11,7 +11,7 @@ current_graph('http://www.ex.org/default').
 
 set_current_graph(Graph) :-
   retractall(current_graph(_)),
-  assertz(current_graph(Graph)). % TODO asserta
+  asserta(current_graph(Graph)). % TODO asserta
 
 insert_rdf(Subject,Predicate,Object) :- 
   current_graph(Graph),  

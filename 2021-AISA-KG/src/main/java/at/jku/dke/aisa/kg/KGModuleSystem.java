@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -23,8 +22,7 @@ import org.jpl7.Query;
 
 public class KGModuleSystem {
 
-	private static final String TEMPFILE_PATH_REPLICATE = "fileoutput/tempreplicate.rdf";
-	private static final String PROLOG_PROGRAM = "resources/global.pl";
+
 	ArrayList<KGModule> moduleList; //in the order they were registered
 	Map<String,KGModule> modules;
 	Map<String,SingleRunModule> staticModules;
@@ -43,7 +41,7 @@ public class KGModuleSystem {
 		this.con = con;
 		this.prefixes = prefixes;
 		
-		new Query("consult('"+ PROLOG_PROGRAM + "')").hasSolution();
+		new Query("consult('"+ GLOBAL.INIT_PROLOG_PROGRAM + "')").hasSolution();
 	
 	}
 	
@@ -93,7 +91,7 @@ public class KGModuleSystem {
 	
 	public void cleanOutputFolders() throws IOException {
 		System.out.println("Clean Output Folders ...");
-		FileUtils.cleanDirectory(new File("fileoutput"));
+		FileUtils.cleanDirectory(new File(GLOBAL.FILEOUTPUT_PATH));
 	}
 	
 	public void startConsoleApplication(InputStream in, PrintStream out) {
@@ -160,11 +158,11 @@ public class KGModuleSystem {
 	public void copyFromKgToProlog(String graphIri) {
 		Model model = con.fetch(graphIri);		
 		
-		try(OutputStream fileOut = Files.newOutputStream(Paths.get(TEMPFILE_PATH_REPLICATE))) {
+		try(OutputStream fileOut = Files.newOutputStream(Paths.get(GLOBAL.TEMPFILE_PATH_REPLICATE))) {
 			RDFDataMgr.write(fileOut, model, Lang.RDFXML);
 		} catch (IOException e) { e.printStackTrace(); }
 		
-		new Query("rdf_load('" + TEMPFILE_PATH_REPLICATE + "',[graph('"+graphIri+"')])").hasSolution();
+		new Query("rdf_load('" + GLOBAL.TEMPFILE_PATH_REPLICATE + "',[graph('"+graphIri+"')])").hasSolution();
 	}
 	
 	/** replicate a named graph from Prolog-RDF-DB in the KG 
@@ -172,8 +170,8 @@ public class KGModuleSystem {
 	 * it is assumed that the named graph is committed and does not change anymore
 	 * */
 	public void copyFromPrologToKg(String graphIri) {
-		new Query("rdf_save('" + TEMPFILE_PATH_REPLICATE + "',[graph('"+graphIri+"')])").hasSolution();
-		con.load(graphIri, TEMPFILE_PATH_REPLICATE); 	
+		new Query("rdf_save('" + GLOBAL.TEMPFILE_PATH_REPLICATE + "',[graph('"+graphIri+"')])").hasSolution();
+		con.load(graphIri, GLOBAL.TEMPFILE_PATH_REPLICATE); 	
 	}
 
 

@@ -5,8 +5,8 @@ import org.apache.jena.rdfconnection.RDFConnection;
 import org.apache.jena.rdfconnection.RDFConnectionFactory;
 import org.apache.jena.rdfconnection.RDFConnectionFuseki;
 import org.apache.jena.rdfconnection.RDFConnectionRemoteBuilder;
+import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.shared.PrefixMapping;
-import org.apache.jena.shared.impl.PrefixMappingImpl;
 
 public final class GLOBAL {
 
@@ -25,19 +25,27 @@ public final class GLOBAL {
 	
 	public final static String SCHEMA_GRAPH_NAME = "https://github.com/jku-win-dke/aisa/graphs/schema";
 	public final static String DATA_GRAPH_NAMESPACE = "https://github.com/jku-win-dke/aisa/graphs";
+	
+	public static final String INIT_PROLOG_PROGRAM = "resources/global.pl";
+	public static final String FILEOUTPUT_PATH = "fileoutput";
+	public static final String FILEINPUT_PATH = "fileinput";
+	public static final String TEMPFILE_PATH_REPLICATE = FILEOUTPUT_PATH + "/tempreplicate.rdf";
+  
+	private final static String PREFIXES_FILE = "resources/prefixes.ttl";
 
-    //TODO: aus prefixes.ttl einlesen
-    public static PrefixMapping getPrefixMapping() {
-		PrefixMapping prefixes = new PrefixMappingImpl();		
-		prefixes.setNsPrefix("xs",    NS_XS); 
-		prefixes.setNsPrefix("rdf",   NS_RDF);
-		prefixes.setNsPrefix("rdfs",  NS_RDFS);
-		prefixes.setNsPrefix("aisa",  NS_AISA);
-		prefixes.setNsPrefix("graphs",NS_GRAPHS);
-		prefixes.setNsPrefix("adsb",  NS_ADSB);
+	/* load prefix mappings from PREFIXES_FILE and override it with hard-coded Namespace Prefixes */
+	public static PrefixMapping getPrefixMapping() {
+		PrefixMapping prefixes = RDFDataMgr.loadGraph(PREFIXES_FILE).getPrefixMapping();
+
+		prefixes.setNsPrefix("xs", NS_XS);
+		prefixes.setNsPrefix("rdf", NS_RDF);
+		prefixes.setNsPrefix("rdfs", NS_RDFS);
+		prefixes.setNsPrefix("aisa", NS_AISA);
+		prefixes.setNsPrefix("graphs", NS_GRAPHS);
+		prefixes.setNsPrefix("adsb", NS_ADSB);
 		prefixes.setNsPrefix("aisar", NS_AISAR);
-    	return prefixes;
-    }	
+		return prefixes;
+	}
 	
     public static RDFConnectionFuseki getLocalFusekiConnection() {
 		RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create()

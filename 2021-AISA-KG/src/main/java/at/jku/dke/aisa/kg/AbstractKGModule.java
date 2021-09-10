@@ -16,6 +16,8 @@ import org.apache.jena.shared.PrefixMapping;
 
 public abstract class AbstractKGModule implements KGModule {
 
+
+
 	/** the local name of the module and its named graph */
 	private final String module;
 	
@@ -88,15 +90,17 @@ public abstract class AbstractKGModule implements KGModule {
 		
 	}
 	
-	/** per default doInit does nothing, can be overridden when necessary */
+	/** 
+	 * doInit() is called from init() to facilitate custom content per module 
+	 * per default doInit does nothing, can be overridden when necessary */
 	protected void doInit() {};
 	
 	private final String getInputFolder() {
-		return "fileinput/" + getName();
+		return GLOBAL.FILEINPUT_PATH + "/" + getName();
 	}
 	
 	private final String getOutputFolder() {
-		return "fileoutput/" + getName();
+		return GLOBAL.FILEOUTPUT_PATH + "/" + getName();
 	}
 
 	public String getOutputPath(String filename) {
